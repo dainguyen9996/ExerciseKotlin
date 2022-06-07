@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Exercise</string>
+    <string name="email">email</string>
+    <string name="login">SIGN-IN</string>
+    <string name="password">password</string>
+    <string name="search">search staff</string>
 </resources>
