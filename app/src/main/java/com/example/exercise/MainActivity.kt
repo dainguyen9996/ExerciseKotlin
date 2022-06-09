@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
             prefManager.removeData()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            // adapter.notifyDataSetChanged()
         }
     }
 }
