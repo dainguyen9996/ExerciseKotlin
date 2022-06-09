@@ -27,7 +27,8 @@
             style="@style/EditBox.BlueBorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password" />
+            android:hint="@string/password"
+            android:id="@+id/pass"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -43,10 +44,12 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_person"
             android:hint="@string/email"
+            android:id="@+id/email"
             android:padding="@dimen/default_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/btLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
