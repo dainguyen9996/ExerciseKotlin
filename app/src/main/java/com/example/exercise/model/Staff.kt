@@ -34,12 +34,15 @@ open class Staff: RealmModel {
     var createAt: String? = ""
 
     @Required
-    var department: String? = ""
+    var department: String? = "it"
 
     @Required
     var address: String? = ""
 
     @Required
     var createBy: String? = "123"
+
+    @Required
+    var roleName: String = "staff"
 }
 

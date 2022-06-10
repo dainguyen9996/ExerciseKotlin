@@ -38,12 +38,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun checkLogin() {
-        if (prefManager.getUsername() != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+        if (prefManager.getUsername() != "") {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("userName", prefManager.getUsername()?.let { viewModel.getUserId(it) })
+            startActivity(intent)
         }
     }
 }

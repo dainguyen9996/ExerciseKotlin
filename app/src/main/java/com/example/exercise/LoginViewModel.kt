@@ -25,6 +25,7 @@ class LoginViewModel : ViewModel() {
                         email = userName
                         department = "IT"
                         address = "hn"
+                        roleName = "admin"
                     }
                 realm.insertOrUpdate(note)
                 id = UUID.randomUUID().toString()

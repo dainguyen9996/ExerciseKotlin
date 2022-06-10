@@ -13,7 +13,7 @@ class MainViewModel : ViewModel() {
     //создаем экземпляр Realm с дефолтной конфигурацией
     private var realm: Realm = Realm.getDefaultInstance()
 
-    val allNotes: LiveData<List<Staff>>
+    val allNotes: LiveData<MutableList<Staff>>
     get() = getAllNotes()
 //
 //    //добавляем данные в Realm
@@ -45,14 +45,14 @@ class MainViewModel : ViewModel() {
         return staffValue
     }
 //
-    private fun getAllNotes(): MutableLiveData<List<Staff>> {
-        val list = MutableLiveData<List<Staff>>()
+    private fun getAllNotes(): MutableLiveData<MutableList<Staff>> {
+        val list = MutableLiveData<MutableList<Staff>>()
 
         /*
             Берем данные из БД и помещаем их в RealmResult. Этот
             результат может быть конвертирован в список
          */
-        val notes = realm.where(Staff::class.java).findAll()
+        val notes = realm.where(Staff::class.java).findAll().filter { it.roleName == "staff" } as MutableList ?: null
         list.value = notes?.subList(0, notes.size)
         return list
     }
@@ -62,33 +62,31 @@ class MainViewModel : ViewModel() {
 //        мы запрашиваем данные с соответствующим идентификатором данных,
 //        которые нам нужно обновить.
 //     */
-//    fun updateNote(id: String, noteTitle: String, noteDesc: String) {
-//        val target = realm.where(Note::class.java)
-//            .equalTo("id", id)
-//            /*
-//               В нашем запросе мы добавим метод findFirst(), чтобы
-//               найти первый соответствующий экземпляр данных,
-//               которые нужно обновить.
-//                */
-//            .findFirst()
-//
-//        realm.executeTransaction {
-//            target?.title = noteTitle
-//            target?.description = noteDesc
-//            realm.insertOrUpdate(target)
-//        }
-//    }
+    fun updateNote(id: String, name: String, pass: String, email: String, department :String, address: String ) {
+        val target = realm.where(Staff::class.java)
+            .equalTo("id", id)
+            .findFirst()
+
+        realm.executeTransaction {
+            target?.name = name
+            target?.password = pass
+            target?.email = email
+            target?.address = address
+            target?.department = department
+            realm.insertOrUpdate(target)
+        }
+    }
 //
 //    //удаление одиночного item из объекта realm
-//    fun deleteNote(id: String) {
-//        val notes = realm.where(Note::class.java)
-//            .equalTo("id", id)
-//            .findFirst()
-//
-//        realm.executeTransaction {
-//            notes!!.deleteFromRealm()
-//        }
-//    }
+    fun deleteNote(id: String) {
+        val notes = realm.where(Staff::class.java)
+            .equalTo("id", id)
+            .findFirst()
+
+        realm.executeTransaction {
+            notes?.deleteFromRealm()
+        }
+    }
 //
 //    //удаление всех данных из объекта Realm
 //    fun deleteAllNotes() {

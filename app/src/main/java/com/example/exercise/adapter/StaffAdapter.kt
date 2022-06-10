@@ -9,7 +9,7 @@ import com.example.exercise.databinding.ItemStaffBinding
 import com.example.exercise.model.Staff
 
 class StaffAdapter(
-    private val dept : String,
+    private val dept: String,
     private val onCLickEditListener: OnClickEditListener,
     private val onCLickListener: OnClickListener,
     private val onSwipe: OnSwiper
@@ -30,16 +30,9 @@ class StaffAdapter(
         val staff = getItem(position)
         holder.bind(staff)
 
-        //onSwipe.onCLick(staff)
-
         holder.itemView.setOnClickListener {
             onCLickListener.onClick(staff)
         }
-//
-//        holder.itemView.setOnClickListener {
-//            onCLickListener.onClick(staff)
-//        }
-
     }
 
     object MyDiffUtil : DiffUtil.ItemCallback<Staff>() {
@@ -70,13 +63,15 @@ class StaffAdapter(
         fun bind(staff: Staff?) {
             binding.apply {
                 tvName.text = staff?.name
-                tvRole.text = "staff"
+                tvRole.text = if (staff?.email == "admin@gm.vn") "admin" else "staff"
+
                 imgEdit.setOnClickListener {
                     staff?.let { it1 -> onCLickEditListener.onClick(it1) }
                 }
                 imgDel.setOnClickListener {
                     staff?.let { it1 -> onSwipe.onCLick(it1) }
                 }
+
             }
         }
     }

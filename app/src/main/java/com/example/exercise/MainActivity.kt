@@ -3,7 +3,6 @@ package com.example.exercise
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var staffAdapter: StaffAdapter
     private lateinit var staffAdapterB: StaffAdapter
     private lateinit var prefManager: PrefManager
+    private var listStaff: MutableList<Staff> = mutableListOf()
 
     var id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +32,15 @@ class MainActivity : AppCompatActivity() {
         prefManager = PrefManager(this)
 
         staffAdapter = StaffAdapter("deptA", StaffAdapter.OnClickEditListener { note ->
-            createUpdateDialog(note)
+            if (binding.role.text == "admin") {
+                createUpdateDialog(note)
+            }
         }, StaffAdapter.OnClickListener { note ->
             showDetailStaffDialog(note)
         }, StaffAdapter.OnSwiper {
-            id = it.id
+            if (binding.role.text == "admin") {
+                deleteStaf(it.id)
+            }
         })
 
         staffAdapterB = StaffAdapter("deptB", StaffAdapter.OnClickEditListener { note ->
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }, StaffAdapter.OnClickListener { note ->
             showDetailStaffDialog(note)
         }, StaffAdapter.OnSwiper {
-            id = it.id
+            deleteStaf(it.id)
         })
 
         val userId = intent.getStringExtra("userName")
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 binding.apply {
                     name.text = staff.name
                     address.text = staff.address
-                    role.text = "IT"
+                    role.text = staff.roleName
                     depart.text = staff.department
                     email.text = staff.email
                 }
@@ -68,8 +72,10 @@ class MainActivity : AppCompatActivity() {
             binding.subLayout.visibility = View.INVISIBLE
         }
 
-        binding.btCreate.setOnClickListener {
-            startActivity(Intent(this, AddStaffActivity::class.java))
+        if (binding.role.text == "admin") {
+            binding.btCreate.setOnClickListener {
+                startActivity(Intent(this, AddStaffActivity::class.java))
+            }
         }
 
         binding.btLogout.setOnClickListener {
@@ -78,13 +84,54 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.allNotes.observe(this) { allNotes ->
-            staffAdapter.submitList(allNotes)
+            listStaff = allNotes
+            staffAdapter.submitList(listStaff.filter { it.department == "it" })
+            staffAdapterB.submitList(listStaff.filter { it.department == "kt" })
             binding.rcvDeptA.adapter = staffAdapter
+            binding.rcvDeptB.adapter = staffAdapterB
         }
     }
 
-    private fun createUpdateDialog(staff: Staff) {
+    private fun deleteStaf(id: String) {
+        viewModel.deleteNote(id)
+    }
 
+    private fun createUpdateDialog(staff: Staff) {
+        val viewGroup = findViewById<ViewGroup>(android.R.id.content)
+        val dialogView: View =
+            LayoutInflater.from(this).inflate(R.layout.activity_add_staff, viewGroup, false)
+
+        val tvName = dialogView.findViewById<EditText>(R.id.tvName)
+        val tvEmail = dialogView.findViewById<EditText>(R.id.tvEmail)
+        val pass = dialogView.findViewById<EditText>(R.id.tvPass)
+        val tvDept = dialogView.findViewById<EditText>(R.id.tvDept)
+        val tvAddress = dialogView.findViewById<EditText>(R.id.tvAddress)
+        val btOK = dialogView.findViewById<Button>(R.id.btAdd)
+
+        tvName.setText(staff.name)
+        tvEmail.setText(staff.email)
+        tvDept.setText(staff.department)
+        tvAddress.setText(staff.address)
+        pass.setText(staff.password)
+        btOK.visibility = View.GONE
+
+        AlertDialog.Builder(this).apply {
+            setView(dialogView)
+            setPositiveButton("Ok") { _, _ ->
+                viewModel.updateNote(
+                    staff.id,
+                    tvName.text.toString(),
+                    pass.text.toString(),
+                    tvEmail.text.toString(),
+                    tvDept.text.toString(),
+                    tvAddress.text.toString()
+                )
+                staffAdapter.notifyDataSetChanged()
+            }
+            setNegativeButton("Cancel") { _, _ ->
+
+            }.show()
+        }
     }
 
     private fun showDetailStaffDialog(staff: Staff) {
