@@ -4,4 +4,14 @@
     <string name="login">SIGN-IN</string>
     <string name="password">password</string>
     <string name="search">search staff</string>
+    <string name="deptA">DEPARTMENT A</string>
+    <string name="department">Department</string>
+    <string name="deptB">DEPARTMENT B</string>
+    <string name="create">CREATE NEW STAFF</string>
+    <string name="view_all">VIEW ALL ROLE</string>
+    <string name="change_profile">CHANGE PROFILE</string>
+    <string name="sign_off">SIGN OFF</string>
+    <string name="address">address</string>
+    <string name="add">Add</string>
+    <string name="name">name</string>
 </resources>

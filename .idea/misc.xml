@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Data/Android/ExerciseKotlin/ExerciseKotlin/app/src/main/res/drawable/background_button_blue_border.xml" value="0.20989583333333334" />
-        <entry key="..\:/Data/Android/ExerciseKotlin/ExerciseKotlin/app/src/main/res/drawable/background_edit_box_error.xml" value="0.20989583333333334" />
-        <entry key="..\:/Data/Android/ExerciseKotlin/ExerciseKotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20989583333333334" />
-        <entry key="..\:/Data/Android/ExerciseKotlin/ExerciseKotlin/app/src/main/res/layout/activity_login.xml" value="0.18958333333333333" />
-        <entry key="..\:/Data/Android/ExerciseKotlin/ExerciseKotlin/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/drawable/background_button_blue_border.xml" value="0.222" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/drawable/background_edit_box_blue_border.xml" value="0.222" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/drawable/bg_text_button.xml" value="0.222" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.222" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/drawable/ic_menu.xml" value="0.222" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/layout/activity_add_staff.xml" value="0.17831813576494426" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Data/Temp/ExerciseKotlin/app/src/main/res/layout/item_staff.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>

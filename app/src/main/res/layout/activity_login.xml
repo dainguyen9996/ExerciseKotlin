@@ -20,14 +20,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        app:endIconMode="password_toggle"
         app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtUserName"
             style="@style/EditBox.BlueBorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password" />
+            android:drawableEnd="@drawable/ic_person"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/default_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,18 +38,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
+        app:endIconMode="password_toggle"
         app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPass"
+            android:inputType="textPassword"
             style="@style/EditBox.BlueBorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_person"
-            android:hint="@string/email"
-            android:padding="@dimen/default_margin" />
+            android:hint="@string/password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/btLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
@@ -55,5 +60,4 @@
         android:text="@string/login"
         android:textAlignment="center"
         android:textColor="@color/white" />
-
 </LinearLayout>
