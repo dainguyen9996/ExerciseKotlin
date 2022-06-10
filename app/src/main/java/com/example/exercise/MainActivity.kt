@@ -3,6 +3,7 @@ package com.example.exercise
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.exercise.adapter.StaffAdapter
 import com.example.exercise.databinding.ActivityMainBinding
 import com.example.exercise.model.Staff
+import com.example.exercise.pref.PrefManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var staffAdapter: StaffAdapter
     private lateinit var staffAdapterB: StaffAdapter
+    private lateinit var prefManager: PrefManager
 
     var id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        prefManager = PrefManager(this)
 
-        staffAdapter = StaffAdapter("deptA",StaffAdapter.OnClickEditListener { note ->
+        staffAdapter = StaffAdapter("deptA", StaffAdapter.OnClickEditListener { note ->
             createUpdateDialog(note)
         }, StaffAdapter.OnClickListener { note ->
             showDetailStaffDialog(note)
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             id = it.id
         })
 
-        staffAdapterB = StaffAdapter("deptB",StaffAdapter.OnClickEditListener { note ->
+        staffAdapterB = StaffAdapter("deptB", StaffAdapter.OnClickEditListener { note ->
             createUpdateDialog(note)
         }, StaffAdapter.OnClickListener { note ->
             showDetailStaffDialog(note)
@@ -66,6 +70,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btCreate.setOnClickListener {
             startActivity(Intent(this, AddStaffActivity::class.java))
+        }
+
+        binding.btLogout.setOnClickListener {
+            prefManager.removeData()
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         viewModel.allNotes.observe(this) { allNotes ->
