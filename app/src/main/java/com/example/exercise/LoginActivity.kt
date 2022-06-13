@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
                     if (viewModel.login(userName, pass)) {
                         prefManager.setUsername(userName)
                         intent.putExtra("userName", viewModel.getUserId(userName))
+                        prefManager.setId(viewModel.getUserId(userName))
                         startActivity(intent)
                     }
                 }

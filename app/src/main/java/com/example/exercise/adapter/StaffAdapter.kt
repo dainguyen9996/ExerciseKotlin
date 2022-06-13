@@ -42,6 +42,7 @@ class StaffAdapter(
 
         override fun areContentsTheSame(oldItem: Staff, newItem: Staff): Boolean {
             return oldItem.id == newItem.id
+                    && oldItem.name == newItem.name
         }
 
     }

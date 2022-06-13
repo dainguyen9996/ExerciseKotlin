@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.exercise.model.Staff
-
+import io.realm.Case
 import io.realm.Realm
-import io.realm.kotlin.deleteFromRealm
+import io.realm.RealmQuery
+import io.realm.RealmResults
 import java.util.*
 
 class MainViewModel : ViewModel() {
@@ -52,11 +53,17 @@ class MainViewModel : ViewModel() {
             Берем данные из БД и помещаем их в RealmResult. Этот
             результат может быть конвертирован в список
          */
-        val notes = realm.where(Staff::class.java).findAll().filter { it.roleName == "staff" } as MutableList ?: null
-        list.value = notes?.subList(0, notes.size)
+        realm.executeTransaction { mRealm -> //Change the previous mRealm to the realm parameter object and it's fine
+            //val realmResults: RealmResults<Staff> = (mRealm.where(Staff::class.java).findAll().filter { it.roleName == "staff" } as MutableList ?: null) as RealmResults<Staff>
+            val notes = mRealm.where(Staff::class.java).findAll()
+                .filter { it.roleName == "staff" } as MutableList
+            list.value = notes.subList(0, notes.size)
+        }
+
         return list
     }
-//
+
+    //
 //    /*
 //        обновление данных похоже на вставку данных, только на этот раз
 //        мы запрашиваем данные с соответствующим идентификатором данных,
@@ -76,16 +83,39 @@ class MainViewModel : ViewModel() {
             realm.insertOrUpdate(target)
         }
     }
-//
-//    //удаление одиночного item из объекта realm
-    fun deleteNote(id: String) {
-        val notes = realm.where(Staff::class.java)
-            .equalTo("id", id)
-            .findFirst()
 
-        realm.executeTransaction {
-            notes?.deleteFromRealm()
+    //    //удаление одиночного item из объекта realm
+    fun deleteNote(id: String) {
+        try {
+            val notes = realm.where(Staff::class.java)
+                .equalTo("id", id)
+                .findAll()
+
+            realm.beginTransaction()
+            notes.deleteAllFromRealm()
+            realm.commitTransaction()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+
+    }
+
+    fun searchStaff(key: String): List<Staff>? {
+        return allNotes.value?.filter { it.name?.contains(key, true) != null }
+    }
+
+    fun searchStaffByName(key: String): MutableList<Staff> {
+        val list: MutableList<Staff> = mutableListOf()
+        try {
+            val query: RealmQuery<Staff> = realm.where(Staff::class.java)
+            query.contains("name", key, Case.INSENSITIVE)
+            val result1: RealmResults<Staff> = query.findAll()
+            list.addAll(result1)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+
+        return list
     }
 //
 //    //удаление всех данных из объекта Realm

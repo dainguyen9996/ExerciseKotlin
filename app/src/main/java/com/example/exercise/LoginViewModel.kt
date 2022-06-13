@@ -12,7 +12,8 @@ class LoginViewModel : ViewModel() {
     //добавляем данные в Realm
     fun addAdmin(userName: String, pass: String): String {
         //выполняем транзакцию для добавления данных в Realm
-        var id = ""
+        //var id = 0
+        var id = "0"
         realm.executeTransaction { realm ->
             realm.where(Staff::class.java).findAll()
                 .firstOrNull { it.email == "admin@gm.vn" }?.let { staff ->
@@ -51,7 +52,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun getUserId(userName: String): String {
-        var id = ""
+        var id = "0"
         realm.executeTransaction { realm ->
             realm.where(Staff::class.java).findAll()
                 .firstOrNull { it.email == userName }?.let { staff ->

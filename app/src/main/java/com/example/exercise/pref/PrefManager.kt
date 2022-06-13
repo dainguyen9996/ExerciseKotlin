@@ -2,6 +2,7 @@ package com.example.exercise.pref
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.exercise.model.Staff
 
 class PrefManager(context: Context?) {
 
@@ -21,13 +22,23 @@ class PrefManager(context: Context?) {
         editor?.commit()
     }
 
-    fun isLogin(): Boolean? {
-        return pref?.getBoolean(IS_LOGIN, false)
+    fun setId(id: String) {
+        editor?.putString("id", id)
+        editor?.commit()
     }
+
+//    fun isLogin(): Boolean? {
+//        return pref?.getBoolean(IS_LOGIN, false)
+//    }
 
     fun getUsername(): String? {
         return pref?.getString("username", "")
     }
+
+    fun getId(): Int? {
+        return pref?.getInt("id", 0)
+    }
+
 
     fun removeData() {
         editor?.clear()
