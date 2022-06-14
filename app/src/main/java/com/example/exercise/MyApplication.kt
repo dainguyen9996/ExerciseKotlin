@@ -8,30 +8,41 @@ import io.realm.RealmConfiguration
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        myAppInstance = this
-        Realm.init(this)
-//        val config = RealmConfiguration.Builder()
-//            .name("Person.db")
+//        myAppInstance = this
+//        Realm.init(this)
+////        val config = RealmConfiguration.Builder()
+////            .name("Person.db")
+////            .deleteRealmIfMigrationNeeded()
+////            .build()
+//
+//        val configuration = RealmConfiguration.Builder()
+//            .name("todo.db")
 //            .deleteRealmIfMigrationNeeded()
+//            .schemaVersion(0)
+//            .allowWritesOnUiThread(true)
+//            .allowQueriesOnUiThread(true)
 //            .build()
-
-        val configuration = RealmConfiguration.Builder()
-            .name("todo.db")
-            .deleteRealmIfMigrationNeeded()
-            .schemaVersion(0)
-            .allowWritesOnUiThread(true)
-            .allowQueriesOnUiThread(true)
-            .build()
-
-        Realm.setDefaultConfiguration(configuration)
+//
+//        Realm.setDefaultConfiguration(configuration)
+        initRealm()
     }
 
-    companion object {
+    //    companion object {
+//
+//        private lateinit var myAppInstance: MyApplication
+//
+//        fun get(): MyApplication {
+//            return myAppInstance
+//        }
+//    }
+    private fun initRealm() {
+        Realm.init(this)
 
-        private lateinit var myAppInstance: MyApplication
+        val config = RealmConfiguration.Builder()
+            .allowWritesOnUiThread(true) //do background thread
+            .deleteRealmIfMigrationNeeded()
+            .build()
 
-        fun get(): MyApplication {
-            return myAppInstance
-        }
+        Realm.setDefaultConfiguration(config)
     }
 }

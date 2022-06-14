@@ -22,7 +22,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+
+    //    private lateinit var viewModel: MainViewModel
     private lateinit var staffAdapter: StaffAdapter
     private lateinit var staffAdapterB: StaffAdapter
     private lateinit var staffAdapterTextChange: StaffAdapter
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefManager: PrefManager
     private var listStaff: MutableList<Staff> = mutableListOf()
     private var listStaffDefault: MutableList<Staff> = mutableListOf()
+//    private lateinit var list: ArrayList<Staff>
 
     var id = ""
 
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         prefManager = PrefManager(this)
 
         staffAdapter = StaffAdapter("deptA", StaffAdapter.OnClickEditListener { note ->
@@ -49,50 +51,53 @@ class MainActivity : AppCompatActivity() {
             showDetailStaffDialog(note)
         }, StaffAdapter.OnSwiper {
             if (binding.role.text == "admin") {
-                deleteStaf(it.id)
+                //deleteStaf(it.id)
             }
         })
 
-        staffAdapterTextChange = StaffAdapter("deptAChange", StaffAdapter.OnClickEditListener { note ->
-            if (binding.role.text == "admin") {
+        staffAdapterTextChange =
+            StaffAdapter("deptAChange", StaffAdapter.OnClickEditListener { note ->
+                if (binding.role.text == "admin") {
+                    createUpdateDialog(note)
+                }
+            }, StaffAdapter.OnClickListener { note ->
+                showDetailStaffDialog(note)
+            }, StaffAdapter.OnSwiper {
+                if (binding.role.text == "admin") {
+                    //deleteStaf(it.id)
+                }
+            })
+
+        staffAdapterBTextChange =
+            StaffAdapter("deptBChange", StaffAdapter.OnClickEditListener { note ->
                 createUpdateDialog(note)
-            }
-        }, StaffAdapter.OnClickListener { note ->
-            showDetailStaffDialog(note)
-        }, StaffAdapter.OnSwiper {
-            if (binding.role.text == "admin") {
-                deleteStaf(it.id)
-            }
-        })
-
-        staffAdapterBTextChange = StaffAdapter("deptBChange", StaffAdapter.OnClickEditListener { note ->
-            createUpdateDialog(note)
-        }, StaffAdapter.OnClickListener { note ->
-            showDetailStaffDialog(note)
-        }, StaffAdapter.OnSwiper {
-            deleteStaf(it.id)
-        })
+            }, StaffAdapter.OnClickListener { note ->
+                showDetailStaffDialog(note)
+            }, StaffAdapter.OnSwiper {
+                //deleteStaf(it.id)
+            })
 
         staffAdapterB = StaffAdapter("deptB", StaffAdapter.OnClickEditListener { note ->
             createUpdateDialog(note)
         }, StaffAdapter.OnClickListener { note ->
             showDetailStaffDialog(note)
         }, StaffAdapter.OnSwiper {
-            deleteStaf(it.id)
+            //deleteStaf(it.id)
         })
+        readNotesList()
 
         val userId = intent.getStringExtra("userName")
         //val userId = prefManager.getId()
         userId?.let {
-            viewModel.getInfo(it)?.let { staff ->
-                binding.apply {
-                    name.text = staff.name
-                    address.text = staff.address
-                    role.text = staff.roleName
-                    depart.text = staff.department
-                    email.text = staff.email
-                }
-            }
+//            viewModel.getInfo(it)?.let { staff ->
+//                binding.apply {
+//                    name.text = staff.name
+//                    address.text = staff.address
+//                    role.text = staff.roleName
+//                    depart.text = staff.department
+//                    email.text = staff.email
+//                }
+//            }
         }
 
         binding.imgMenu.setOnClickListener {
@@ -103,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             binding.subLayout.visibility = View.INVISIBLE
         }
 
-        if (binding.role.text == "admin") {
+        if (prefManager.getUsername() == "ad") {
             binding.btCreate.setOnClickListener {
                 startActivity(Intent(this, AddStaffActivity::class.java))
             }
@@ -127,11 +132,11 @@ class MainActivity : AppCompatActivity() {
                 binding.rcvDeptATextChange.visibility = View.VISIBLE
                 binding.rcvDeptBChange.visibility = View.VISIBLE
 
-                staffAdapterTextChange.submitList(viewModel.searchStaff(key)?.filter { it.department == "it" })
-                binding.rcvDeptATextChange.adapter = staffAdapterTextChange
-
-                staffAdapterBTextChange.submitList(viewModel.searchStaff(key)?.filter { it.department == "kt" })
-                binding.rcvDeptATextChange.adapter = staffAdapterTextChange
+//                staffAdapterTextChange.submitList(viewModel.searchStaff(key)?.filter { it.department == "it" })
+//                binding.rcvDeptATextChange.adapter = staffAdapterTextChange
+//
+//                staffAdapterBTextChange.submitList(viewModel.searchStaff(key)?.filter { it.department == "kt" })
+//                binding.rcvDeptATextChange.adapter = staffAdapterTextChange
 
                 //staffAdapter.submitList(listStaff.filter { it.department == "it" })
                 //staffAdapter.submitList(viewModel.searchStaff(key))
@@ -178,17 +183,17 @@ class MainActivity : AppCompatActivity() {
 //        binding.rcvDeptA.adapter = staffAdapter
 //        binding.rcvDeptB.adapter = staffAdapterB
 
-        viewModel.allNotes.observe(this) { allNotes ->
-            listStaff = allNotes
-            staffAdapter.submitList(listStaff.filter { it.department == "it" })
-            staffAdapterB.submitList(listStaff.filter { it.department == "kt" })
-            binding.rcvDeptA.adapter = staffAdapter
-            binding.rcvDeptB.adapter = staffAdapterB
-        }
+//        viewModel.allNotes.observe(this) { allNotes ->
+//            listStaff = allNotes
+//            staffAdapter.submitList(listStaff.filter { it.department == "it" })
+//            staffAdapterB.submitList(listStaff.filter { it.department == "kt" })
+//            binding.rcvDeptA.adapter = staffAdapter
+//            binding.rcvDeptB.adapter = staffAdapterB
+//        }
     }
 
     private fun searchList(queryText: String) {
-        listStaff = viewModel.searchStaffByName(queryText)
+//        listStaff = viewModel.searchStaffByName(queryText)
         staffAdapter.submitList(listStaff.filter { it.department == "it" })
         staffAdapterB.submitList(listStaff.filter { it.department == "kt" })
         binding.rcvDeptA.adapter = staffAdapter
@@ -197,6 +202,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteStaf(id: String) {
         //viewModel.deleteNote(id)
+    }
+
+    private fun readNotesList() {
+        //read post from realm
+        listStaff = RealmManager.instance!!.loadNotes()
+        refreshAdapter(listStaff)
+    }
+
+    private fun refreshAdapter(list: MutableList<Staff>) {
+        //read post from realm
+
+        staffAdapter.submitList(list.filter { it.department == "it" })
+        binding.rcvDeptA.adapter = staffAdapter
     }
 
     private fun createUpdateDialog(staff: Staff) {
@@ -221,14 +239,14 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this).apply {
             setView(dialogView)
             setPositiveButton("Ok") { _, _ ->
-                viewModel.updateNote(
-                    staff.id,
-                    tvName.text.toString(),
-                    pass.text.toString(),
-                    tvEmail.text.toString(),
-                    tvDept.text.toString(),
-                    tvAddress.text.toString()
-                )
+//                viewModel.updateNote(
+//                    staff.id,
+//                    tvName.text.toString(),
+//                    pass.text.toString(),
+//                    tvEmail.text.toString(),
+//                    tvDept.text.toString(),
+//                    tvAddress.text.toString()
+//                )
                 staffAdapter.notifyDataSetChanged()
                 staffAdapterB.notifyDataSetChanged()
             }
