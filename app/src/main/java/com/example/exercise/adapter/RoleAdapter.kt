@@ -12,6 +12,8 @@ import com.example.exercise.databinding.ItemRoleBinding
 import com.example.exercise.model.Role
 
 class RoleAdapter(
+    private val isDeleteEnable: Boolean?,
+    private val isEdit: Boolean?,
     private val onCLickEditListener: OnClickEditListener,
     private val onCLickListener: OnClickListener,
     private val onSwipe: OnSwiper
