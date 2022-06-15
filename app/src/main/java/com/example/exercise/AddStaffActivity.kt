@@ -20,14 +20,27 @@ class AddStaffActivity : AppCompatActivity() {
         //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.apply {
             btAdd.setOnClickListener {
-                if (tvName.text.toString().isNullOrEmpty() || tvAddress.text.toString()
+                if (tvName.text.toString().isNullOrEmpty() || tvName.text.toString()
                         .isNullOrEmpty() || tvEmail.text.toString()
                         .isNullOrEmpty() || tvDept.text.toString()
-                        .isNullOrEmpty() || tvPass.text.toString().isNullOrEmpty()
+                        .isNullOrEmpty() || tvPass.text.toString()
+                        .isNullOrEmpty() || tvAddress.text.toString().isNullOrEmpty()
                 ) {
                     return@setOnClickListener
                 }
-                RealmManager.instance!!.saveNote(Staff(UUID.randomUUID().toString(), "123", "12321", "123123", "","kt", "12231", "123123", "staff"))
+                RealmManager.instance!!.saveNote(
+                    Staff(
+                        UUID.randomUUID().toString(),
+                        tvName.text.toString(),
+                        tvName.text.toString(),
+                        tvPass.text.toString(),
+                        "",
+                        tvDept.text.toString(),
+                        tvAddress.text.toString(),
+                        "123123",
+                        "staff"
+                    )
+                )
                 startActivity(Intent(this@AddStaffActivity, MainActivity::class.java))
             }
         }

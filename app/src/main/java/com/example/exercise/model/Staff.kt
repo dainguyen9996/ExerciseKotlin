@@ -8,17 +8,27 @@ import io.realm.annotations.Required
 
 open class Staff : RealmObject {
     @PrimaryKey()
-    var id : String? = null
-    var name : String? = null
-    var email : String? = null
-    var password : String? = null
-    var createAt : String? = null
-    var department : String? = "kt"
-    var address : String? = null
-    var createBy : String? = null
-    var roleName : String? = "staff"
+    var id: String? = null
+    var name: String? = null
+    var email: String? = null
+    var password: String? = null
+    var createAt: String? = null
+    var department: String? = "kt"
+    var address: String? = null
+    var createBy: String? = null
+    var roleName: String? = "staff"
 
-    constructor(id: String?, name: String?, email: String?, password: String?, createAt: String?, department: String?, address: String?, createBy: String?, roleName: String?,) : super() {
+    constructor(
+        id: String?,
+        name: String?,
+        email: String?,
+        password: String?,
+        createAt: String?,
+        department: String?,
+        address: String?,
+        createBy: String?,
+        roleName: String?,
+    ) : super() {
         this.id = id
         this.name = name
         this.email = email
@@ -30,7 +40,7 @@ open class Staff : RealmObject {
         this.roleName = roleName
     }
 
-    constructor(){}
+    constructor() {}
 }
 //
 //@RealmClass

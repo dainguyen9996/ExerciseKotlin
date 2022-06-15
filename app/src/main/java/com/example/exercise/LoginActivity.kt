@@ -32,10 +32,10 @@ class LoginActivity : AppCompatActivity() {
                                 Staff(
                                     "1",
                                     "admin",
-                                    pass,
                                     userName,
+                                    pass,
                                     "",
-                                    "",
+                                    "IT Security",
                                     "",
                                     "",
                                     "admin"
@@ -54,10 +54,10 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                     }
-                    prefManager.setUsername(userName)
-//                        intent.putExtra("userName", viewModel.getUserId(userName))
-//                        prefManager.setId(viewModel.getUserId(userName))
-                    startActivity(intent)
+//                    prefManager.setUsername(userName)
+//                    intent.putExtra("userName", viewModel.getUserId(userName))
+//                    prefManager.setId(viewModel.getUserId(userName))
+//                    startActivity(intent)
                 }
             }
         }

@@ -86,9 +86,19 @@ class MainActivity : AppCompatActivity() {
         })
         readNotesList()
 
-        val userId = intent.getStringExtra("userName")
+        val userId = prefManager.getUsername()
         //val userId = prefManager.getId()
-        userId?.let {
+        userId?.let { useName ->
+            val staff = RealmManager.instance!!.loadNotes().firstOrNull { it.email == useName }
+            staff?.let {
+                binding.apply {
+                    name.text = staff.name
+                    address.text = staff.address
+                    role.text = staff.roleName
+                    depart.text = staff.department
+                    email.text = staff.email
+                }
+            }
 //            viewModel.getInfo(it)?.let { staff ->
 //                binding.apply {
 //                    name.text = staff.name
@@ -212,9 +222,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshAdapter(list: MutableList<Staff>) {
         //read post from realm
-
         staffAdapter.submitList(list.filter { it.department == "it" })
+        staffAdapterB.submitList(list.filter { it.department == "kt" })
         binding.rcvDeptA.adapter = staffAdapter
+        binding.rcvDeptB.adapter = staffAdapterB
     }
 
     private fun createUpdateDialog(staff: Staff) {
