@@ -3,8 +3,10 @@ package com.example.exercise
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import android.util.Log
 import com.example.exercise.databinding.ActivityLoginBinding
+import com.example.exercise.model.Role
+import com.example.exercise.model.RoleAction
 import com.example.exercise.model.Staff
 import com.example.exercise.pref.PrefManager
 
@@ -27,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 if (userName == "ad" && pass == "1") {
                     prefManager.setUsername(userName)
                     RealmManager.instance?.let { realm ->
-                        if (realm.loadNotes().firstOrNull { it.email == userName } == null) {
+                        if (realm.loadStaffs().firstOrNull { it.email == userName } == null) {
                             realm.saveAdmin(
                                 Staff(
                                     "1",
@@ -36,28 +38,60 @@ class LoginActivity : AppCompatActivity() {
                                     pass,
                                     "",
                                     "IT Security",
+                                    "hcm",
                                     "",
-                                    "",
-                                    "admin"
+                                    Role(
+                                        "1",
+                                        "admin",
+                                        "All rule are available",
+                                        "",
+                                        "1",
+                                        RoleAction(
+                                            "1",
+                                            createStaff = true,
+                                            edittStaff = true,
+                                            delStaff = true,
+                                            creatRole = true,
+                                            editRole = true,
+                                            delRole = true,
+                                            creatAt = "",
+                                            creatBy = "1"
+                                        )
+                                    )
                                 )
                             )
+//                            realm.saveRole(
+//                                Role(
+//                                    "1",
+//                                    "admin",
+//                                    "",
+//                                    "",
+//                                    "admin",
+//                                    RoleAction(
+//                                        "1",
+//                                        createStaff = true,
+//                                        edittStaff = true,
+//                                        delStaff = true,
+//                                        creatRole = true,
+//                                        editRole = true,
+//                                        delRole = true,
+//                                        creatAt = "",
+//                                        creatBy = "1"
+//                                    )
+//                                )
+//                            )
                         }
                     }
                     intent.putExtra("userName", "")
                     startActivity(intent)
                 } else {
                     RealmManager.instance?.let { realm ->
-                        if (realm.loadNotes().firstOrNull { it.email == userName } == null) {
+                        if (realm.loadStaffs().firstOrNull { it.email == userName } == null) {
                             prefManager.setUsername(userName)
                             intent.putExtra("userName", "")
-//                        prefManager.setId(viewModel.getUserId(userName))
                             startActivity(intent)
                         }
                     }
-//                    prefManager.setUsername(userName)
-//                    intent.putExtra("userName", viewModel.getUserId(userName))
-//                    prefManager.setId(viewModel.getUserId(userName))
-//                    startActivity(intent)
                 }
             }
         }
@@ -69,6 +103,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("userName", "")
             startActivity(intent)
+            RealmManager.instance?.let { realm ->
+                val size = realm.loadRole().size
+                Log.d("12312323", size.toString())
+            }
         }
     }
 }

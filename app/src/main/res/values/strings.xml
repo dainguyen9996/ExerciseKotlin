@@ -14,4 +14,11 @@
     <string name="address">address</string>
     <string name="add">Add</string>
     <string name="name">name</string>
+    <string name="role">ROLES</string>
+    <string name="create_staff">Create new staff</string>
+    <string name="edit_staff">Edit staff</string>
+    <string name="delete_staff">Delete staff</string>
+    <string name="create_new_role">Create new role</string>
+    <string name="edit_role">Edit role</string>
+    <string name="delete_role">Delete role</string>
 </resources>

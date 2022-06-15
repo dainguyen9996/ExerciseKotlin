@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvRoleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/role"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCreateInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="Create by admin"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRoleName" />
+
+    <TextView
+        android:id="@+id/tvDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="No description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreateInfo" />
+
+    <TextView
+        android:id="@+id/tvCrNewStaff"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/create_staff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDes" />
+
+    <ImageView
+        android:id="@+id/imgCrStaff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintStart_toEndOf="@+id/tvCrNewStaff"
+        app:layout_constraintTop_toBottomOf="@+id/tvDes" />
+
+    <TextView
+        android:id="@+id/tvCrEditStaff"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/edit_staff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrNewStaff" />
+
+    <ImageView
+        android:id="@+id/imgEditStaff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintStart_toEndOf="@+id/tvCrEditStaff"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrNewStaff" />
+
+    <TextView
+        android:id="@+id/tvCrDelStaff"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/delete_staff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrEditStaff" />
+
+    <ImageView
+        android:id="@+id/imgDelStaff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintStart_toEndOf="@+id/tvCrDelStaff"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrEditStaff" />
+
+    <TextView
+        android:id="@+id/tvCrNewRole"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/create_new_role"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrDelStaff" />
+
+    <ImageView
+        android:id="@+id/imgCrRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintStart_toEndOf="@+id/tvCrNewRole"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrDelStaff" />
+
+    <TextView
+        android:id="@+id/tvEditRole"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/edit_role"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrNewRole" />
+
+    <ImageView
+        android:id="@+id/imgEditRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvEditRole"
+        app:layout_constraintTop_toBottomOf="@+id/tvCrNewRole" />
+
+    <TextView
+        android:id="@+id/tvDelRole"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/delete_role"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditRole" />
+
+    <ImageView
+        android:id="@+id/imgDelRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintStart_toEndOf="@+id/tvDelRole"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditRole" />
+
+    <LinearLayout
+        android:id="@+id/layoutUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDelRole">
+
+        <ImageView
+            android:id="@+id/imgEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_edit_24" />
+
+        <ImageView
+            android:id="@+id/imgDel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_delete_24" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/default_margin"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutUpdate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

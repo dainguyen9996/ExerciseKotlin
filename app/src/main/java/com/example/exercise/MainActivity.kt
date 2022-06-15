@@ -13,12 +13,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModelProvider
 import com.example.exercise.adapter.StaffAdapter
 import com.example.exercise.databinding.ActivityMainBinding
 import com.example.exercise.model.Staff
 import com.example.exercise.pref.PrefManager
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -55,28 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        staffAdapterTextChange =
-            StaffAdapter("deptAChange", StaffAdapter.OnClickEditListener { note ->
-                if (binding.role.text == "admin") {
-                    createUpdateDialog(note)
-                }
-            }, StaffAdapter.OnClickListener { note ->
-                showDetailStaffDialog(note)
-            }, StaffAdapter.OnSwiper {
-                if (binding.role.text == "admin") {
-                    //deleteStaf(it.id)
-                }
-            })
-
-        staffAdapterBTextChange =
-            StaffAdapter("deptBChange", StaffAdapter.OnClickEditListener { note ->
-                createUpdateDialog(note)
-            }, StaffAdapter.OnClickListener { note ->
-                showDetailStaffDialog(note)
-            }, StaffAdapter.OnSwiper {
-                //deleteStaf(it.id)
-            })
-
         staffAdapterB = StaffAdapter("deptB", StaffAdapter.OnClickEditListener { note ->
             createUpdateDialog(note)
         }, StaffAdapter.OnClickListener { note ->
@@ -89,12 +65,12 @@ class MainActivity : AppCompatActivity() {
         val userId = prefManager.getUsername()
         //val userId = prefManager.getId()
         userId?.let { useName ->
-            val staff = RealmManager.instance!!.loadNotes().firstOrNull { it.email == useName }
+            val staff = RealmManager.instance!!.loadStaffs().firstOrNull { it.email == useName }
             staff?.let {
                 binding.apply {
                     name.text = staff.name
                     address.text = staff.address
-                    role.text = staff.roleName
+                    role.text = staff.role?.name
                     depart.text = staff.department
                     email.text = staff.email
                 }
@@ -128,10 +104,11 @@ class MainActivity : AppCompatActivity() {
             prefManager.removeData()
             startActivity(Intent(this, LoginActivity::class.java))
         }
-        binding.search.doOnTextChanged { text, _, _, _ ->
-            //val queryText = text.toString().toLowerCase(Locale.getDefault())
-            //searchList(queryText)
+
+        binding.showRoles.setOnClickListener {
+            startActivity(Intent(this, RoleActivity::class.java))
         }
+
         binding.search.doAfterTextChanged { text ->
             val key = text.toString()
             var listStaffA: MutableList<Staff> = mutableListOf()
@@ -216,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun readNotesList() {
         //read post from realm
-        listStaff = RealmManager.instance!!.loadNotes()
+        listStaff = RealmManager.instance!!.loadStaffs()
         refreshAdapter(listStaff)
     }
 

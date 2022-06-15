@@ -1,13 +1,10 @@
 package com.example.exercise.model
 
-import io.realm.RealmModel
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import io.realm.annotations.RealmClass
-import io.realm.annotations.Required
 
 open class Staff : RealmObject {
-    @PrimaryKey()
+    @PrimaryKey
     var id: String? = null
     var name: String? = null
     var email: String? = null
@@ -16,7 +13,7 @@ open class Staff : RealmObject {
     var department: String? = "kt"
     var address: String? = null
     var createBy: String? = null
-    var roleName: String? = "staff"
+    var role: Role? = null
 
     constructor(
         id: String?,
@@ -27,7 +24,7 @@ open class Staff : RealmObject {
         department: String?,
         address: String?,
         createBy: String?,
-        roleName: String?,
+        roleName: Role?,
     ) : super() {
         this.id = id
         this.name = name
@@ -37,10 +34,10 @@ open class Staff : RealmObject {
         this.department = department
         this.address = address
         this.createBy = createBy
-        this.roleName = roleName
+        this.role = roleName
     }
 
-    constructor() {}
+    constructor()
 }
 //
 //@RealmClass

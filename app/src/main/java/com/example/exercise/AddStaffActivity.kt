@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.exercise.databinding.ActivityAddStaffBinding
+import com.example.exercise.model.Role
+import com.example.exercise.model.RoleAction
 import com.example.exercise.model.Staff
 import java.util.*
 
@@ -28,7 +30,7 @@ class AddStaffActivity : AppCompatActivity() {
                 ) {
                     return@setOnClickListener
                 }
-                RealmManager.instance!!.saveNote(
+                RealmManager.instance!!.saveStaff(
                     Staff(
                         UUID.randomUUID().toString(),
                         tvName.text.toString(),
@@ -38,7 +40,24 @@ class AddStaffActivity : AppCompatActivity() {
                         tvDept.text.toString(),
                         tvAddress.text.toString(),
                         "123123",
-                        "staff"
+                        Role(
+                            UUID.randomUUID().toString(),
+                            "staff",
+                            "",
+                            "",
+                            "admin",
+                            RoleAction(
+                                UUID.randomUUID().toString(),
+                                createStaff = false,
+                                edittStaff = false,
+                                delStaff = false,
+                                creatRole = false,
+                                editRole = false,
+                                delRole = false,
+                                creatAt = "",
+                                creatBy = "1"
+                            )
+                        )
                     )
                 )
                 startActivity(Intent(this@AddStaffActivity, MainActivity::class.java))

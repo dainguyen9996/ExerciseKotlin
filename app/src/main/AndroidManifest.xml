@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Exercise">
         <activity
+            android:name=".AddRoleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoleActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddStaffActivity"
             android:exported="false" />
         <activity
